@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight");
+
+:root {
+  --background: #f3f4f6;
+  --darkcolor: #264653;
+  --lighttext: #f9fafb;
+  --darkblue: #dda15e;
+  --hoverblue: rgb(12, 74, 110);
+}
+
+html {
+  background-color: var(--background);
+}
+
+body {
+  font-family: "Inter Tight";
+}
+
+.nav {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+  background-color: var(--darkcolor);
+}
+
+.pagetitle {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--lighttext);
+}
+
+.pagetitle:hover {
+  color: antiquewhite;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-start;
+  background-color: var(--darkcolor);
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  padding: 10px;
+  align-items: center;
+}
+
+.footercontent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+a {
+  color: white;
+}
