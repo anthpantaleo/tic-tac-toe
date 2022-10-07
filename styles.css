@@ -2,10 +2,14 @@
 
 :root {
   --background: #f3f4f6;
-  --darkcolor: #264653;
+  --darkcolor: #0f766e;
   --lighttext: #f9fafb;
-  --darkblue: #dda15e;
+  --somecolor: #ece9e5;
   --hoverblue: rgb(12, 74, 110);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html {
@@ -13,7 +17,7 @@ html {
 }
 
 body {
-  font-family: "Inter Tight";
+  font-family: "Inter Tight", sans-serif;
 }
 
 .nav {
@@ -31,6 +35,73 @@ body {
 
 .pagetitle:hover {
   color: antiquewhite;
+}
+
+.mainwrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boardwrapper {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  height: 300px;
+  width: 300px;
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+}
+
+.bottom {
+  border-bottom: 2px solid var(--darkcolor);
+}
+
+.right {
+  border-right: 2px solid var(--darkcolor);
+}
+
+.left {
+  border-left: 2px solid var(--darkcolor);
+}
+
+.top {
+  border-top: 2px solid var(--darkcolor);
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 90px;
+}
+
+.gameinfowrapper {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.gameinfo {
+  height: 200px;
+  width: 300px;
+  border: 2px solid var(--darkcolor);
+  border-radius: 5px;
+  background-color: var(--somecolor);
+}
+
+.cell.x:hover {
+  background-color: rgb(215, 240, 215);
+}
+
+.cell.o:hover {
+  background-color: rgb(233, 204, 204);
 }
 
 .footer {
