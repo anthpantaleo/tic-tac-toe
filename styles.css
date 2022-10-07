@@ -38,7 +38,7 @@ body {
 }
 
 .mainwrapper {
-  height: 100vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,6 +49,7 @@ body {
   flex: 1;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
 }
 
 .board {
@@ -98,6 +99,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 20px;
 }
 
 .gameplaythrough {

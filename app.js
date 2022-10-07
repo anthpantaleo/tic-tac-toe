@@ -9,7 +9,7 @@ const gameBoard = (() => {
 
   function listenToBoard() {
     cells.forEach((cell) => {
-      cell.addEventListener("click", playerMove);
+      cell.addEventListener("click", playerMove, { once: true });
     });
   }
 
@@ -20,7 +20,7 @@ const gameBoard = (() => {
     console.table(board);
     currentCell.textContent = currentPlayer;
     changePlayer();
-    gameControls.gameCoach;
+    gameControls.gameUpdater();
   }
 
   function changePlayer() {
@@ -39,6 +39,7 @@ const gameBoard = (() => {
     board = [null, null, null, null, null, null, null, null, null];
     console.table(board);
     listenToBoard();
+    gameControls.gameUpdater();
   }
   return {
     clearBoard,
@@ -54,9 +55,12 @@ const gameControls = (() => {
   });
 
   const gameCoach = document.querySelector(".gameplaythrough");
-  function gameUpdater() {}
+  function gameUpdater() {
+    gameCoach.textContent = `${currentPlayer}'s Turn.`;
+  }
 
-  return { gameCoach };
+  return { gameCoach, gameUpdater };
 })();
 
 gameBoard.listenToBoard();
+gameControls.gameUpdater();
