@@ -1,8 +1,10 @@
+let player1 = "X";
+let player2 = "O";
+let currentPlayer = player1;
+
 const gameBoard = (() => {
-  let player1 = "X";
-  let player2 = "O";
-  let currentPlayer = player1;
   let board = new Array(9);
+
   const cells = document.querySelectorAll(".cell");
 
   cells.forEach((cell) => {
@@ -12,7 +14,6 @@ const gameBoard = (() => {
   function playerMove(event) {
     let cellIndex = event.target.getAttribute("data-index");
     let currentCell = event.target;
-    console.log(`Clicked ${cellIndex}`);
     board[cellIndex] = currentPlayer;
     console.table(board);
     currentCell.textContent = currentPlayer;
@@ -25,5 +26,20 @@ const gameBoard = (() => {
     } else {
       currentPlayer = player1;
     }
+  }
+})();
+
+const gameControls = (() => {
+  const start = document.querySelector(".startgame");
+  start.addEventListener("click", function () {
+    board = new Array(9);
+    currentPlayer = player1;
+    clearboard();
+  });
+
+  function clearBoard() {
+    cells.forEach((cell) => {
+      cell.textContent = "";
+    });
   }
 })();
