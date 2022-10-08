@@ -4,11 +4,22 @@ const GameLoad = () => {
   let player2 = "O";
   let currentPlayer = player1;
   let gameOn = true;
-  let draw = false;
-  return { board, player1, player2, currentPlayer, gameOn, draw };
+  let winner = "";
+  let isWinner = false;
+  let isDraw = false;
+  let winningIndex = [null, null, null];
+  return {
+    board,
+    player1,
+    player2,
+    currentPlayer,
+    gameOn,
+    winner,
+    isWinner,
+    isDraw,
+    winningIndex,
+  };
 };
-
-let currentBoard = GameLoad();
 
 const domControl = (() => {
   const cells = document.querySelectorAll(".cell");
@@ -22,6 +33,8 @@ const domControl = (() => {
       cells.forEach((cell) => {
         cell.addEventListener("click", playerMove, { once: true });
       });
+    } else {
+      gameUpdater();
     }
   }
 
@@ -29,16 +42,13 @@ const domControl = (() => {
     cells.forEach((cell) => {
       cell.textContent = "";
     });
-    currentBoard.board = [null, null, null, null, null, null, null, null, null];
+    currentBoard = GameLoad();
     listenToBoard();
-
-    currentBoard.gameOn = true;
-    currentBoard.currentPlayer = currentBoard.player1;
     gameUpdater();
   }
 
   function playerMove(event) {
-    if (currentBoard.gameOn == true) {
+    if (currentBoard.gameOn == true && currentBoard.isWinner == false) {
       let cellIndex = event.target.getAttribute("data-index");
       let currentCell = event.target;
       currentBoard.board[cellIndex] = currentBoard.currentPlayer;
@@ -50,17 +60,25 @@ const domControl = (() => {
   }
 
   function changePlayer() {
-    if (currentBoard.gameOn) {
-      if (currentBoard.currentPlayer === "X") {
-        currentBoard.currentPlayer = currentBoard.player2;
-      } else {
-        currentBoard.currentPlayer = currentBoard.player1;
+    if (currentBoard.board.includes(null)) {
+      if (currentBoard.gameOn) {
+        if (currentBoard.currentPlayer === "X") {
+          currentBoard.currentPlayer = currentBoard.player2;
+        } else {
+          currentBoard.currentPlayer = currentBoard.player1;
+        }
       }
     }
   }
 
   function gameUpdater() {
-    gameCoach.textContent = `${currentBoard.currentPlayer}'s Turn.`;
+    if (currentBoard.gameOn == true) {
+      gameCoach.textContent = `${currentBoard.currentPlayer}'s Turn.`;
+    } else if (currentBoard.gameOn == false && currentBoard.isWinner == true) {
+      gameCoach.textContent = `${currentBoard.winner} Won!`;
+    } else if (currentBoard.gameOn == false && currentBoard.isDraw == true) {
+      gameCoach.textContent = `That's a tie!`;
+    }
   }
 
   return { listenToBoard, clearBoard, gameUpdater };
@@ -79,7 +97,6 @@ const gameLogic = (() => {
   ];
 
   function checkWin(someBoard) {
-    console.table(someBoard);
     for (let i = 0; i <= winStates.length - 1; i++) {
       let position1 = winStates[i][0];
       let position2 = winStates[i][1];
@@ -91,14 +108,24 @@ const gameLogic = (() => {
         checkBoard[position3] === currentBoard.currentPlayer
       ) {
         currentBoard.gameOn = false;
+        currentBoard.winner = currentBoard.currentPlayer;
+        currentBoard.isWinner = true;
+        currentBoard.winningIndex = winStates[i];
+        domControl.gameUpdater();
+      } else if (!currentBoard.board.includes(null)) {
+        currentBoard.gameOn = false;
+        currentBoard.isDraw = true;
+        domControl.gameUpdater();
       }
     }
   }
 
-  function checkDraw(someBoard) {}
-
-  return { checkWin, checkDraw };
+  return { checkWin };
 })();
 
+let currentBoard = GameLoad();
+// GameBoard is created
 domControl.listenToBoard();
+//Immediately listens to the Dom
 domControl.gameUpdater();
+//Updates the Game Info
