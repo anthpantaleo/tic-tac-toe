@@ -4,7 +4,8 @@ const GameLoad = () => {
   let player2 = "O";
   let currentPlayer = player1;
   let gameOn = true;
-  return { board, player1, player2, currentPlayer, gameOn };
+  let draw = false;
+  return { board, player1, player2, currentPlayer, gameOn, draw };
 };
 
 let currentBoard = GameLoad();
@@ -17,9 +18,11 @@ const domControl = (() => {
   start.addEventListener("click", clearBoard);
 
   function listenToBoard() {
-    cells.forEach((cell) => {
-      cell.addEventListener("click", playerMove, { once: true });
-    });
+    if (currentBoard.board.includes(null)) {
+      cells.forEach((cell) => {
+        cell.addEventListener("click", playerMove, { once: true });
+      });
+    }
   }
 
   function clearBoard() {
@@ -92,89 +95,10 @@ const gameLogic = (() => {
     }
   }
 
-  return { checkWin };
+  function checkDraw(someBoard) {}
+
+  return { checkWin, checkDraw };
 })();
 
 domControl.listenToBoard();
 domControl.gameUpdater();
-
-// gameControls.gameUpdater();
-
-// const gameBoard = (() => {
-//   const cells = document.querySelectorAll(".cell");
-
-//   function listenToBoard() {
-//     cells.forEach((cell) => {
-//       cell.addEventListener("click", playerMove, { once: true });
-//     });
-//   }
-
-//   function playerMove(event) {
-//     if (gameOn) {
-//       let cellIndex = event.target.getAttribute("data-index");
-//       let currentCell = event.target;
-//       currentBoard.board[currentCell] = currentPlayer;
-//       console.table(currentBoard.board);
-//       currentCell.textContent = currentPlayer;
-//       gameControls.checkWin(currentBoard.board);
-//       changePlayer();
-//       gameControls.gameUpdater();
-//     }
-//   }
-
-//   function changePlayer() {
-//     if (currentBoard.currentPlayer === player1) {
-//       currentBoard.currentPlayer = currentBoard.player2;
-//     } else {
-//       currentBoard.currentPlayer = currentBoard.player1;
-//     }
-//   }
-
-//   function clearBoard() {
-//     console.log("clear");
-//     cells.forEach((cell) => {
-//       cell.textContent = "";
-//     });
-//     currentBoard.board = [null, null, null, null, null, null, null, null, null];
-//     console.table(currentBoard.board);
-//     listenToBoard();
-//     gameControls.gameUpdater();
-//     currentBoard.gameOn = true;
-//   }
-//   return {
-//     clearBoard,
-//     listenToBoard,
-//   };
-// })();
-
-// const gameControls = (() => {
-//   const start = document.querySelector(".startgame");
-//   start.addEventListener("click", function () {
-//     currentBoard.currentPlayer = currentBoard.player1;
-//     gameBoard.clearBoard();
-//   });
-
-//   const gameCoach = document.querySelector(".gameplaythrough");
-//   function gameUpdater() {
-//     gameCoach.textContent = `${currentBoard.currentPlayer}'s Turn.`;
-//   }
-
-//   const winStates = [
-//     [0, 1, 2],
-//     [3, 4, 5],
-//     [6, 7, 8],
-//     [0, 3, 6],
-//     [1, 4, 7],
-//     [2, 5, 8],
-//     [0, 4, 8],
-//     [2, 4, 6],
-//   ];
-
-//   function checkWin(currentBoard) {
-//     for (let i = 0; i <= winStates.length - 1; i++) {
-//       console.log(winStates[i]);
-//     }
-//   }
-
-//   return { gameCoach, gameUpdater, checkWin };
-// })();
