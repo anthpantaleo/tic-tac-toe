@@ -41,7 +41,10 @@ const domControl = (() => {
   function clearBoard() {
     cells.forEach((cell) => {
       cell.textContent = "";
+      cell.classList.remove("winner");
+      cell.classList.remove("loser");
     });
+
     currentBoard = GameLoad();
     listenToBoard();
     gameUpdater();
@@ -76,9 +79,24 @@ const domControl = (() => {
       gameCoach.textContent = `${currentBoard.currentPlayer}'s Turn.`;
     } else if (currentBoard.gameOn == false && currentBoard.isWinner == true) {
       gameCoach.textContent = `${currentBoard.winner} Won!`;
+      updateBoardWin();
     } else if (currentBoard.gameOn == false && currentBoard.isDraw == true) {
       gameCoach.textContent = `That's a tie!`;
     }
+  }
+
+  function updateBoardWin() {
+    cells.forEach((cell) => {
+      if (
+        currentBoard.winningIndex.includes(
+          parseInt(cell.getAttribute("data-index"))
+        )
+      ) {
+        cell.classList.add("winner");
+      } else {
+        cell.classList.add("loser");
+      }
+    });
   }
 
   return { listenToBoard, clearBoard, gameUpdater };

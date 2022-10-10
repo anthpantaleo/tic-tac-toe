@@ -106,14 +106,6 @@ body {
   font-size: 32px;
 }
 
-.cell.x:hover {
-  background-color: rgb(215, 240, 215);
-}
-
-.cell.o:hover {
-  background-color: rgb(233, 204, 204);
-}
-
 .footer {
   display: flex;
   justify-content: flex-start;
@@ -134,4 +126,12 @@ body {
 
 a {
   color: white;
+}
+
+.winner {
+  background-color: lightgreen;
+}
+
+.loser {
+  background-color: lightcoral;
 }
