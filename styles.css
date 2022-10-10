@@ -135,3 +135,13 @@ a {
 .loser {
   background-color: lightcoral;
 }
+
+button {
+  background-color: var(--darkcolor);
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
